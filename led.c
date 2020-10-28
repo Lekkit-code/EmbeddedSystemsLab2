@@ -1,11 +1,11 @@
 #include <avr/io.h>
 #include "led.h"
 
-#define LED_PIN 3
-#define LED_PORT PORTB
+#define LED_PIN 6
+#define LED_PORT PORTD
 
 void LED_init(void) {
-	DDRB |= (1 << 3);
+	DDRD |= (1 << LED_PIN);
 }
 
 void LED_flip(void) {
