@@ -9,30 +9,18 @@
 #include "serial.h"
 #include "timer.h"
 
-volatile int counter = 0; //Needs to be volatile to work with interrupts.
-
 int main (void) {
 	uart_init();
 	LED_init();
 	timer_init();
 
-	sei(); //Enables interrupts.
-	
 	while (1) {
-		
-		if (counter == 10)//Every 10th interrupt we turn our LED on/off.
-		{
-			counter = 0;
-			LED_flip();
-		}
+		OCR0A = 10; //Set the duty cycle to 3,9%. ((10/256)*100)
+		_delay_ms(1000);
+		OCR0A = 100;	//Set the duty cycle to 39% ((100/256)*100)
+		_delay_ms(1000);
+		OCR0A = 250;	//Set the duty cycle to 97,6% ((250/256)*100)
+		_delay_ms(1000);
 	}
 	return 0;
-}
-
-
-
-ISR(TIMER0_COMPA_vect) //Triggers when TCNT0 and OCR0A have the same value, which happens every 10th ms. Adds one to the counter and then clears the interrupt flag.
-{
-    counter++;
-    TIFR0 &= ~(1 << OCF0A);
 }
