@@ -5,7 +5,8 @@ SOURCES = \
 		  main.c \
 		  serial.c \
 		  led.c \
-		  timer.c
+		  timer.c \
+		  functions.c
 
 PORT = /dev/ttyS4# Arduinons serieport — kan vara ttyACM1, kolla dmesg!
 
